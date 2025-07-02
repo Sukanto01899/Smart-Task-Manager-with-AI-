@@ -7,6 +7,8 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import Button from "../button/Button";
 import { FaWandMagicSparkles } from "react-icons/fa6";
+  import { toast } from 'react-toastify';
+
 
 interface CardProps {
   task: Task;
@@ -28,12 +30,18 @@ const Card: React.FC<CardProps> = ({ task, handleDelete }) => {
 
       const data = await res.json();
       const subtasks = data.subtasks;
-      // subtasks.shift()
-
       setSubtasks(subtasks);
+      console.log(subtasks)
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      console.log(err)
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
