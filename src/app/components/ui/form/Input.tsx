@@ -27,7 +27,7 @@ export const Input = ({
     <div className="flex flex-col gap-2">
       {label && (
         <label className="text-sm text-gray-100" htmlFor={uniqueId}>
-          {label} (30w max)
+          {label}
         </label>
       )}
       <input

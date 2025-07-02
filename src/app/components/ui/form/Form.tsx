@@ -55,43 +55,49 @@ const Form = ({ task, toggleModal }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-      <Input
-        defaultValue={task?.title}
-        formData={{ ...register("title", { required: true, maxLength: 30 }) }}
-        type="text"
-        label="Enter task title."
-        placeholder="Title..."
-        error={errors.title}
-      />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col justify-between h-full"
+    >
+      <div className="flex flex-col gap-4">
+        <Input
+          defaultValue={task?.title}
+          formData={{ ...register("title", { required: true, maxLength: 30 }) }}
+          type="text"
+          label="Enter task title. (30w max)"
+          placeholder="Title..."
+          error={errors.title}
+        />
 
-      <TextArea
-        defaultValue={task?.description}
-        formData={{ ...register("description", { required: true, maxLength: 300 }) }}
-        row={5}
-        label="Enter task description."
-        error={errors.description}
-      />
+        <TextArea
+          defaultValue={task?.description}
+          formData={{
+            ...register("description", { required: true, maxLength: 300 }),
+          }}
+          row={5}
+          label="Enter task description."
+          error={errors.description}
+        />
 
-      <Input
-        defaultValue={task?.date}
-        error={errors.date}
-        formData={{ ...register("date", { required: true }) }}
-        type="date"
-        label="Enter due date"
-        placeholder="Date.."
-      />
+        <Input
+          defaultValue={task?.date}
+          error={errors.date}
+          formData={{ ...register("date", { required: true }) }}
+          type="date"
+          label="Enter due date"
+          placeholder="Date.."
+        />
 
-      <Select
-        defaultValue={task?.status}
-        error={errors.status}
-        formData={{ ...register("status", { required: true }) }}
-        options={["pending", "completed"]}
-        label="Select task status"
-      />
-
+        <Select
+          defaultValue={task?.status}
+          error={errors.status}
+          formData={{ ...register("status", { required: true }) }}
+          options={["pending", "completed"]}
+          label="Select task status"
+        />
+      </div>
       {/* <Button /> */}
-      <Button text={task ? "Update" : "Create"} variant="md" type="submit"/>
+      <Button text={task ? "Update" : "Create"} variant="md" type="submit" />
     </form>
   );
 };

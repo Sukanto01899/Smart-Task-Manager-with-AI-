@@ -5,7 +5,6 @@ import Card from "../ui/card/Card";
 import useTasksContext from "@/app/hooks/useTaskContext";
 import { Task } from "@/app/type";
 import { IoGridOutline } from "react-icons/io5";
-import Button from "../ui/button/Button";
 
 
 const filterOptionsList = ["all", "completed", "pending"];

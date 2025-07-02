@@ -33,7 +33,7 @@ const Modal = ({ isModalOpen, toggleModal, task }: MyComponentProps) => {
   return (
     <div
       ref={modalRef}
-      className={`w-full h-full shadow-2xl md:w-[400px] px-4 py-5 md:max-h-[550px] rounded-tl-lg backdrop-blur-3xl rounded-tr-lg fixed transition-all ${
+      className={`w-full h-full shadow-2xl md:w-[400px] px-4 py-5 md:max-h-[600px]  rounded-tl-lg backdrop-blur-3xl rounded-tr-lg fixed transition-all ${
         isModalOpen && "top-[50%] opacity-100"
       } transform translate-[-50%] left-[50%] bottom-[-150%] opacity-0   duration-500 border-[1px] border-gray-300`}
     >
