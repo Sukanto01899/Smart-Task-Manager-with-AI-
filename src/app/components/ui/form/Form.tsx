@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Task, TaskStatus } from "@/app/type";
 import useTasksContext from "@/app/hooks/useTaskContext";
 import Button from "../button/Button";
+import { toast } from "react-toastify";
 
 type Props = {
   task?: Task;
@@ -34,7 +35,7 @@ const Form = ({ task, toggleModal }: Props) => {
     const today = new Date();
 
     if (selectedTime < today) {
-      return console.log("You are in past");
+      return toast.warn('Please select future date')
     }
 
     if (task) {
