@@ -56,5 +56,6 @@ git clone https://github.com/Sukanto01899/Smart-Task-Manager-with-AI-.git
 cd Smart-Task-Manager-with-AI-
 npm install
 npm run dev
+```
 
-**My semester final exam is ahead, it was very difficult to do it in this situation, but still I tried to fulfill the requirements. I needed this opportunity. Because it will increase my skills and experience.
+### My semester final exam is ahead, it was very difficult to do it in this situation, but still I tried to fulfill the requirements. I needed this opportunity. Because it will increase my skills and experience.
