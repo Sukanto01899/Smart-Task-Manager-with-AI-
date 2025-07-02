@@ -21,6 +21,7 @@ export async function getSubtasksFromGemini(taskTitle: string) {
 
     return output?.split("\n").filter((line: string) => line.trim()) ?? [];
   } catch (err) {
-    console.log(err);
+    console.log(err)
+    throw new Error("Gemini service failed")
   }
 }

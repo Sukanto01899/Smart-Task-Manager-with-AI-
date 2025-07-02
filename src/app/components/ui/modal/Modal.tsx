@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Form from "../form/Form";
 import { IoCloseOutline } from "react-icons/io5";
 import { Task } from "@/app/type";
@@ -12,11 +12,30 @@ type MyComponentProps = {
 };
 
 const Modal = ({ isModalOpen, toggleModal, task }: MyComponentProps) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        if (isModalOpen) {
+          toggleModal(false);
+        }
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return ()=>{
+      document.removeEventListener("click", handleOutsideClick);
+    }
+  }, [isModalOpen, toggleModal]);
+
   return (
     <div
-      className={`w-full h-full shadow-2xl lg:w-[400px] px-4 py-5 lg:h-[500px] rounded-tl-lg backdrop-blur-3xl rounded-tr-lg fixed transition-all ${
-        isModalOpen ? "bottom-[0%]" : "bottom-[-100%]"
-      } transform translate-x-[-50%] left-[50%] duration-500 border-t-[1px] border-l-[1px] border-r-[1px] border-gray-300`}
+      ref={modalRef}
+      className={`w-full h-full shadow-2xl md:w-[400px] px-4 py-5 md:max-h-[550px] rounded-tl-lg backdrop-blur-3xl rounded-tr-lg fixed transition-all ${
+        isModalOpen && "top-[50%] opacity-100"
+      } transform translate-[-50%] left-[50%] bottom-[-150%] opacity-0   duration-500 border-[1px] border-gray-300`}
     >
       <button
         onClick={() => toggleModal(false)}
@@ -24,7 +43,7 @@ const Modal = ({ isModalOpen, toggleModal, task }: MyComponentProps) => {
       >
         <IoCloseOutline />
       </button>
-      <Form task={task} toggleModal={toggleModal}/>
+      <Form task={task} toggleModal={toggleModal} />
     </div>
   );
 };

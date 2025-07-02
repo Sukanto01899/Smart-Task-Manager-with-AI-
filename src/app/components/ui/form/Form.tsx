@@ -3,6 +3,7 @@ import { Input, Select, TextArea } from "./Input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Task, TaskStatus } from "@/app/type";
 import useTasksContext from "@/app/hooks/useTaskContext";
+import Button from "../button/Button";
 
 type Props = {
   task?: Task;
@@ -57,17 +58,19 @@ const Form = ({ task, toggleModal }: Props) => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
       <Input
         defaultValue={task?.title}
-        formData={{ ...register("title", { required: true }) }}
+        formData={{ ...register("title", { required: true, maxLength: 30 }) }}
         type="text"
         label="Enter task title."
         placeholder="Title..."
+        error={errors.title}
       />
 
       <TextArea
         defaultValue={task?.description}
-        formData={{ ...register("description", { required: true }) }}
+        formData={{ ...register("description", { required: true, maxLength: 300 }) }}
         row={5}
         label="Enter task description."
+        error={errors.description}
       />
 
       <Input
@@ -83,12 +86,12 @@ const Form = ({ task, toggleModal }: Props) => {
         defaultValue={task?.status}
         error={errors.status}
         formData={{ ...register("status", { required: true }) }}
-        options={["complete", "pending"]}
+        options={["pending", "completed"]}
         label="Select task status"
       />
 
       {/* <Button /> */}
-      <input type="submit" value="Submit" />
+      <Button text={task ? "Update" : "Create"} variant="md" type="submit"/>
     </form>
   );
 };

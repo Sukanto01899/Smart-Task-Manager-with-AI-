@@ -26,8 +26,8 @@ export const Input = ({
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label className="text-sm text-gray-400" htmlFor={uniqueId}>
-          {label}
+        <label className="text-sm text-gray-100" htmlFor={uniqueId}>
+          {label} (30w max)
         </label>
       )}
       <input
@@ -39,7 +39,7 @@ export const Input = ({
         className={`${classname} bg-gray-600 py-2 px-3 w-full outline-none border rounded-lg text-md border-blue-300`}
       />
 
-      {error && <span>{error.message}</span>}
+      {error && <span className="text-red-500 text-xs">This is required field.</span>}
     </div>
   );
 };
@@ -57,8 +57,8 @@ export const TextArea = ({ row, label, formData, error, defaultValue }: TextArea
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label className="text-sm text-gray-400" htmlFor={uniqueId}>
-          {label}
+        <label className="text-sm text-gray-100" htmlFor={uniqueId}>
+          {label} (300w max)
         </label>
       )}
       <textarea
@@ -69,7 +69,7 @@ export const TextArea = ({ row, label, formData, error, defaultValue }: TextArea
         className="outline-none bg-gray-600 py-2 px-3 border border-blue-300 rounded-lg"
       ></textarea>
 
-      {error && <span>{error.message}</span>}
+      {error && <span className="text-red-500 text-xs">This is required field.</span>}
     </div>
   );
 };
@@ -87,7 +87,7 @@ export const Select = ({ options, label, formData, error, defaultValue }: Select
   return (
     <div className="flex flex-col gap-2">
         {label && (
-        <label className="text-sm text-gray-400" htmlFor={uniqueId}>
+        <label className="text-sm text-gray-100" htmlFor={uniqueId}>
           {label}
         </label>
       )}
@@ -99,7 +99,7 @@ export const Select = ({ options, label, formData, error, defaultValue }: Select
         }
       </select>
 
-      {error && "Select status " }
+      {error && <span className="text-red-500 text-xs">This is required field.</span>}
     </div>
   );
 };

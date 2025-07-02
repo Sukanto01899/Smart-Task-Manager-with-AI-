@@ -7,7 +7,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import Button from "../button/Button";
 import { FaWandMagicSparkles } from "react-icons/fa6";
-  import { toast } from 'react-toastify';
+import useSuggestAi from "@/app/hooks/useSuggestAi";
 
 
 interface CardProps {
@@ -17,50 +17,29 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ task, handleDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [subtasks, setSubtasks] = useState<string[]>();
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleSuggestSubtasks = async (title: string) => {
-    try {
-      setLoading(true);
-      const res = await fetch(`/api/suggest-subtasks`, {
-        method: "POST",
-        body: JSON.stringify({ title }),
-      });
-
-      const data = await res.json();
-      const subtasks = data.subtasks;
-      setSubtasks(subtasks);
-      console.log(subtasks)
-      setLoading(false);
-    } catch (err) {
-      console.log(err)
-      if (err instanceof Error) {
-        toast.error(err.message);
-      } else {
-        toast.error("An unexpected error occurred");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {loading, handleSubtasks} = useSuggestAi()
+  
 
   return (
-    <div className="rounded-lg shadow-md p-3 bg-gray-700 flex flex-col gap-3">
+    <div className="rounded-lg shadow-md p-3 bg-gray-700 flex flex-col justify-between gap-3">
       <div>
         <h2 className="text-xl text-blue-500">{task.title}</h2>
-        <p className="text-sm text-gray-400">{task.description}</p>
+        <p className="text-sm text-gray-400 break-words">{task.description}</p>
       </div>
 
-      <ul>
-        {subtasks?.map((item, i) => (
-          <li key={i}>{item}</li>
+      <ul className="text-sm flex flex-wrap gap-2 ">
+        {task?.subtasks?.map((item, i) => ( 
+          <li className="bg-gradient-to-r from-blue-500 to-blue-400 rounded-lg py-1 px-2 shadow-md cursor-pointer hover:scale-105" key={i}>{item}</li>
         ))}
       </ul>
 
-      <div className="flex justify-between items-center text-sm">
+      
+
+      <div>
+
+        <div className="flex justify-between items-center text-sm pb-3">
         <div>
-          status: <span>{task.status}</span>
+          Status: <span className={`${task.status === 'pending' ? "text-amber-500" : "text-green-500"} uppercase`}>{task.status}</span>
         </div>
 
         <div>
@@ -83,11 +62,12 @@ const Card: React.FC<CardProps> = ({ task, handleDelete }) => {
         </div>
 
         <Button
-          onClick={() => handleSuggestSubtasks(task.title)}
+          onClick={() => handleSubtasks(task.title, task.id)}
           text={loading ? "Generating..." : "Suggest Subtask"}
           Icon={FaWandMagicSparkles}
           variant="ai"
         />
+      </div>
       </div>
 
       <Modal
